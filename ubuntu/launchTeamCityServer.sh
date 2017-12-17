@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# Get ec2's local ip address.
 EC2_IPV4_LOCAL=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 TEAMCITY_VERSION=latest
-TEAMCITY_SERVER_IP=34.224.141.66
+TEAMCITY_SERVER_IP=${EC2_IPV4_LOCAL}
 
 # Launch TeamCity Server
 sudo docker run -d \
@@ -12,7 +13,7 @@ sudo docker run -d \
   -p 80:8111 \
   --name teamcity-server \
   --restart unless-stopped \
-  jetbrains/teamcity-server
+  jetbrains/teamcity-server:${TEAMCITY_VERSION}
 
 # Launch TeamCity Build Agent
 sudo docker run -d \
