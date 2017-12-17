@@ -3,23 +3,12 @@
 
 [tc_status_logo]: http://34.224.141.66/app/rest/builds/buildType:BuildAgentDockerImages_Build/statusIcon "Powered by TeamCity"
 
-# Customised TeamCity Build Agent docker images
+# Customized TeamCity Build Agent docker images
 Check [the official site](https://github.com/JetBrains/teamcity-docker-agent) for more info.
 
-### For build-agent image: swarmnyc/teamcity-agent
-```
-cd ./ubuntu/typescript/
-```
 ## How to Build and Push This Image
-```
-docker build -t swarmnyc/teamcity-agent:latest .
-docker push swarmnyc/teamcity-agent:latest
-
-# Tag a specified version for the image.
-IMAGE_VERSION=1.0.0
-docker tag swarmnyc/teamcity-agent:latest swarmnyc/teamcity-agent:${IMAGE_VERSION}
-docker push swarmnyc/teamcity-agent:${IMAGE_VERSION}
-```
+* [swarmnyc/teamcity-agent](ubuntu/typescript)
+* [swarmnyc/teamcity-agent-kurento](ubuntu/kurento)
 
 ## How to Use This Image
 ### Run in command line.
@@ -34,4 +23,7 @@ docker run -d \
 ```
 
 ### Create a restarted docker container.
-See [ubuntu/launchTeamCityServer.sh](blob/master/ubuntu/launchTeamCityServer.sh)
+See [ubuntu/launchTeamCityServer.sh](ubuntu/launchTeamCityServer.sh)
+
+## Test Drive
+[Swarm TeamCity](http://34.224.141.66)
