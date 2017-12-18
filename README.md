@@ -12,6 +12,8 @@ Check [the official site](https://github.com/JetBrains/teamcity-docker-agent) fo
     * nvm v0.33.8
     * Node v8
     * typescript
+    * awscli v1.11.25
+    * ecr-deploy
     * Chrome (for test)
 * [swarmnyc/teamcity-agent-kurento](ubuntu/kurento/build.sh)
     * docker-compose v1.13.0

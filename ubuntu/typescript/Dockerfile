@@ -27,10 +27,18 @@ RUN set +x \
     && . $HOME/.nvm/nvm.sh \
     && nvm --version && nvm install ${NODE_VERSION} && nvm use ${NODE_VERSION} \
     && npm -v \
-    && npm install typescript -g \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    && npm install typescript -g
 
 # Install docker-compose
 RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) > /usr/bin/docker-compose \
     && chmod +x /usr/bin/docker-compose
+
+# Instal AWS CLI & ecs-deploy (https://github.com/fabfuel/ecs-deploy)
+RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /tmp/get-pip.py \
+    && python /tmp/get-pip.py \
+    && pip install awscli==1.11.25 \
+    && pip install ecs-deploy
+
+# Clearn up
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && apt-get clean
