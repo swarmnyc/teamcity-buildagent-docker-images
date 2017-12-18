@@ -2,7 +2,7 @@ FROM jetbrains/teamcity-agent
 
 ENV DOCKER_COMPOSE_VERSION="1.13.0" \
     NVM_VERSION="v0.33.8" \
-    NODE_VERSION="--lts"
+    NODE_VERSION="8.x"
 
 # Install build & util tools.
 RUN apt-get -y update \
@@ -23,11 +23,11 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 
 # Install nvm, node & typescript.
 RUN set +x \
-    && curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash \
-    && . $HOME/.nvm/nvm.sh \
-    && nvm --version && nvm install ${NODE_VERSION} && nvm use ${NODE_VERSION} \
+    && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
+    && apt-get install nodejs -y \
     && npm -v \
-    && npm install typescript -g
+    && npm install typescript gulp npm -g \
+    & npm -v
 
 # Install docker-compose
 RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) > /usr/bin/docker-compose \
