@@ -27,7 +27,7 @@ RUN set +x \
     && apt-get install nodejs -y \
     && npm -v \
     && npm install typescript gulp npm -g \
-    & npm -v
+    && npm -v
 
 # Install docker-compose
 RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) > /usr/bin/docker-compose \
