@@ -21,6 +21,9 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     && apt-get -y update \
     && apt-get -y install google-chrome-stable
 
+# Install nvm.
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
+
 # Install node, npm, gulp, typescript.
 RUN set +x \
     && curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
@@ -28,10 +31,6 @@ RUN set +x \
     && npm -v \
     && npm install typescript gulp npm -g \
     && npm -v
-
-# Install nvm.
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash \
-    && command -v nvm && nvm --version
 
 # Install docker-compose
 RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) > /usr/bin/docker-compose \
