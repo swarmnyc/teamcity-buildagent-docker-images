@@ -15,7 +15,7 @@ Check [the official site](https://github.com/JetBrains/teamcity-docker-agent) fo
     + npm@5.6.0
     + typescript@2.6.2
     * awscli v1.11.25
-    * ecs-deploy-1.4.3
+    * [ecs-deploy-1.4.3](https://github.com/fabfuel/ecs-deploy)
     * Chrome (for test)
 * [swarmnyc/teamcity-agent-kurento](ubuntu/kurento/build.sh)
     * docker-compose v1.13.0
@@ -28,15 +28,26 @@ Check [the official site](https://github.com/JetBrains/teamcity-docker-agent) fo
 ```
 TEAMCITY_SERVER_IP=34.224.141.66
 docker run -d \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e SERVER_URL=$TEAMCITY_SERVER_IP \
     -e AGENT_NAME=Default \
-    --privileged -e DOCKER_IN_DOCKER=start \
     --name teamcity-agent \
     swarmnyc/teamcity-agent:latest
 ```
 
-### Create a restarted docker container.
-See [ubuntu/launchTeamCityServer.sh](ubuntu/launchTeamCityServer.sh)
+### Create a restartable docker container.
+* TeamCity Server, see [ubuntu/launchTeamCityServer.sh](ubuntu/launchTeamCityServer.sh)
+* TeamCity Build Agent, see [ubuntu/launchTeamCityBuildAgent.sh](ubuntu/launchTeamCityBuildAgent.sh)
+
+## Docker In Docker
+Since we need to build a docker image within a Build Agent, which itself is a docker container, we have to deal with the [Docker In Docker](https://github.com/jpetazzo/dind) issue.
+
+There are [two options](https://hub.docker.com/r/jetbrains/teamcity-agent/) to handle it:
+* bind-mounting the Docker socket
+* privileged way
+
+We pick the first one, according to this article: [Using Docker-in-Docker for your CI or testing environment?](http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)
 
 ## Test Drive
 [Swarm TeamCity](http://34.224.141.66)
+
