@@ -39,8 +39,7 @@ RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE
 # Instal AWS CLI & ecs-deploy (https://github.com/fabfuel/ecs-deploy)
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /tmp/get-pip.py \
     && python /tmp/get-pip.py \
-    && pip install awscli --upgrade --user \
-    && echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc \
+    && pip install awscli --upgrade \
     && pip install ecs-deploy
 
 # Clearn up
