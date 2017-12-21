@@ -40,6 +40,7 @@ RUN curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /tmp/get-pip.py \
     && python /tmp/get-pip.py \
     && pip install awscli --upgrade --user \
+    && echo 'export PATH=~/.local/bin:$PATH' >> .bashrc \
     && pip install ecs-deploy
 
 # Clearn up
